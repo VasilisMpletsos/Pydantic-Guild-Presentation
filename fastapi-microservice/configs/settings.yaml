@@ -1,0 +1,50 @@
+default:
+  debug: True
+  api_spec:
+    name: FastAPI boilerplate
+    desc: This is the python code for a FastAPI boilerplate based on uvicorn ASGI server
+    openapi_url: /openapi.json
+    docs_url: /docs
+    version: 0.0.1
+    maintainer:
+      name: Satori Analytics
+      email: sotiris.moschos@satorianalytics.com
+  cors:
+    origins: ['*']
+    allow_credentials: True
+    allow_methods: ['*']
+    allow_headers: ['*']
+    max_age: 86400 # 24 hours
+  logging:
+    level: 10
+    format: "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <yellow>{process}</yellow> |<level>{level: <8}</level> | <cyan>{name}:<cyan>{extra[classname]}</cyan>:</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+    logger_to_loguru:
+      - uvicorn
+      - uvicorn.access
+      - uvicorn.error
+  server:
+    host: localhost
+    bind: 8080
+    worker_class: uvicorn.workers.UvicornWorker
+    workers: 2
+    graceful_timeout: 1
+    timeout: 300000
+    reload: True
+  endpoints:
+    prefix: /satoriopenai/api/v1
+    health: health
+    info: about
+
+development:
+  debug: True
+  env: development
+  server:
+    reload: True
+    dynaconf_merge: True
+
+production:
+  debug: False
+  env: production
+  logging:
+    level: INFO
+    dynaconf_merge: True
