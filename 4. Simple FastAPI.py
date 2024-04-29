@@ -1,7 +1,8 @@
-from fastapi import FastAPI
-import uvicorn
-from pydantic import ConfigDict, BaseModel, EmailStr, SecretStr, Field
 from typing import List
+
+import uvicorn
+from fastapi import FastAPI
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, SecretStr
 
 app = FastAPI()
 
@@ -14,13 +15,13 @@ class SatorianUser(BaseModel):
     email: EmailStr = Field(
         title="Email",
         description="Give here the email of the user",
-        examples=["vasileios.mpletsos@satoryanalytics.com"],
+        examples=["nick.korakas@satoryanalytics.com"],
     )
 
     name: str = Field(
         title="Username of the user",
         description="The name of the user must be provided here",
-        examples=["Vasileios Mpletsos"],
+        examples=["Nikos Korakas"],
     )
 
     password: SecretStr = Field(
@@ -33,7 +34,7 @@ class SatorianUser(BaseModel):
     coding_languages: List[str] = Field(
         title="Coding Languages",
         description="List of coding languages",
-        examples=[["Python", "React", "C", "C++"]],
+        examples=[["Python", "React", "C", "C++", "PowerBI"]],
     )
 
 
